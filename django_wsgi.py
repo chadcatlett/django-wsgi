@@ -77,6 +77,7 @@ class django_view(object):
         if hasattr(response, "close"):
             response_iter = ClosingIterator(response_iter, response.close)
         response = HttpResponse(response_iter, status=int(results["status"].split()[0]))
+        response.content = response.content #lame :)
         for header, value in results["response_headers"]:
             response[header] = value
         return response
